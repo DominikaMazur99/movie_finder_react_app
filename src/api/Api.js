@@ -14,7 +14,6 @@
 // }
 
 export const fetchMovies = async (
-    url,
     method = "GET",
     body = null,
     headers = {},
