@@ -1,0 +1,12 @@
+.movie-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie-card {
+    width: calc(
+        100% / 3 - 1rem
+    ); /* calculate the width for 5 cards in a row with a 1rem margin */
+    margin: 0.5rem;
+}
