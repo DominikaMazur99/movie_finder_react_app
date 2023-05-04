@@ -10,7 +10,7 @@ function MainNavbar() {
         <>
             <Navbar className="flex-column navbar-section ">
                 <Container>
-                    <Navbar.Brand href="#home" className="text-left ">
+                    <Navbar.Brand href="/" className="text-left ">
                         <div className="d-flex align-items-center">
                             <div>
                                 <BiMoviePlay size={30} />
@@ -19,9 +19,11 @@ function MainNavbar() {
                         </div>
                     </Navbar.Brand>
                     <Nav>
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
+                        <Nav.Link href="/">Popular</Nav.Link>
+                        <Nav.Link href="/kids">Kids</Nav.Link>
+                        <Nav.Link href="/science_fiction">
+                            Science Fiction
+                        </Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

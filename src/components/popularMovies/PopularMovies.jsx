@@ -1,7 +1,7 @@
 import MovieCards from "../movieCards/MovieCards";
 
 function PopularMovies() {
-    return <MovieCards />;
+    return <MovieCards category="popular" />;
 }
 
 export default PopularMovies;
