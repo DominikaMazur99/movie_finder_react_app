@@ -1,0 +1,13 @@
+.heart-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.heart-icon svg {
+    transition: fill 0.2s ease-in-out;
+}
+
+.heart-icon svg.filled {
+    fill: red;
+}

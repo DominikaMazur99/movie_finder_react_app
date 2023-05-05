@@ -7,13 +7,10 @@ function MainSearcher({ searchTerm, handleSearch }) {
             <Form.Control
                 type="text"
                 id="search-text"
-                placeholder="Search..."
+                placeholder="Search movie..."
                 value={searchTerm}
                 onChange={handleSearch}
             />
-            <Form.Text id="search-params" muted>
-                You can search film by parameters like author, title, year etc.
-            </Form.Text>
         </Container>
     );
 }

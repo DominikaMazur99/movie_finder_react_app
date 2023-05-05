@@ -4,7 +4,9 @@ import { fetchMovies, searchMovies } from "../../api/Api";
 
 import "./MovieCards.scss";
 import Pagination from "../pagination/Pagination";
+import MainSearcher from "../searcher/MainSearcher.jsx";
 import { Spinner } from "react-bootstrap";
+import HeartIcon from "../details/HeartIcon";
 
 function MovieCards({ category }) {
     const [movies, setMovies] = useState([]);
@@ -59,14 +61,7 @@ function MovieCards({ category }) {
 
     return (
         <>
-            <div className="search-bar-container">
-                <input
-                    type="text"
-                    placeholder="Search for movies..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
-            </div>
+            <MainSearcher searchTerm={searchTerm} handleSearch={handleSearch} />
             {loading ? (
                 <div className="text-center">
                     <Spinner animation="border" role="status">
@@ -88,6 +83,7 @@ function MovieCards({ category }) {
                                 <Card.Text style={{ fontSize: "0.75rem" }}>
                                     {`${overview?.slice(0, 75)}...`}
                                 </Card.Text>
+                                <HeartIcon />
                             </Card.Body>
                         </Card>
                     ))}
