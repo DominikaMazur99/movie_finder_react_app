@@ -18,7 +18,7 @@ function MainNavbar() {
                             <div className="ml-2">MovieFinder</div>
                         </div>
                     </Navbar.Brand>
-                    <Nav>
+                    <Nav className="ml-auto">
                         <Nav.Link href="/">Popular</Nav.Link>
                         <Nav.Link href="/kids">Kids</Nav.Link>
                         <Nav.Link href="/science_fiction">

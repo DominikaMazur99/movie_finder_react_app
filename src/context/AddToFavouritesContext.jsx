@@ -4,7 +4,7 @@ import { useState } from "react";
 export const AddToFavouriteContext = createContext();
 
 const AddToFavouriteProvider = ({ children }) => {
-    const [isFavourite, setIsFavourite] = useState(false);
+    const [isFavourite, setIsFavourite] = useState([]);
 
     const values = {
         isFavourite,

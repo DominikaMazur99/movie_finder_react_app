@@ -1,11 +1,8 @@
 import Button from "react-bootstrap/Button";
 
-function Pagination({
-    currentPage,
+import "./Pagination.scss";
 
-    handlePageClick,
-    totalPages,
-}) {
+function Pagination({ currentPage, handlePageClick, totalPages }) {
     const paginationRange = 5;
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
     const startIndex = Math.max(
@@ -18,9 +15,10 @@ function Pagination({
     );
     const visiblePageNumbers = pageNumbers.slice(startIndex, endIndex + 1);
     return (
-        <div className="pagination">
+        <div className="pagination-box">
             <Button
-                variant="primary"
+                className="pagination-previous-btn"
+                variant="secondary"
                 disabled={currentPage === 1}
                 onClick={() => handlePageClick(currentPage - 1)}
             >
@@ -28,8 +26,11 @@ function Pagination({
             </Button>
             {visiblePageNumbers.map((page) => (
                 <Button
+                    className={`pagination-circle-btn ${
+                        pageNumbers === currentPage ? "active" : ""
+                    }`}
                     key={`page-${page}`}
-                    variant="primary"
+                    variant="secondary"
                     onClick={() => handlePageClick(page)}
                     active={currentPage === page}
                 >
@@ -37,7 +38,8 @@ function Pagination({
                 </Button>
             ))}
             <Button
-                variant="primary"
+                className="pagination-next-btn"
+                variant="secondary"
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageClick(currentPage + 1)}
             >

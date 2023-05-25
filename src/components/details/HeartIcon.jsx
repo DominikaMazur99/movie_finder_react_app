@@ -1,16 +1,10 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useContext } from "react";
-import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
+
 import "./HeartIcon.scss";
 
-const HeartIcon = () => {
-    const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
-
+const HeartIcon = ({ addToFavourite, isFavourite }) => {
     return (
-        <div
-            className="heart-icon"
-            onClick={() => setIsFavourite(!isFavourite)}
-        >
+        <div className="heart-icon" onClick={addToFavourite}>
             {isFavourite ? <FaHeart /> : <FaRegHeart />}
         </div>
     );
