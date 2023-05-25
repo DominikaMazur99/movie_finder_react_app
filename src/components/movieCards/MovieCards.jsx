@@ -9,7 +9,10 @@ import { Spinner } from "react-bootstrap";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useContext } from "react";
 import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
-import { saveDataInLocalStorage } from "../../helpers/localStorageFunctions";
+import {
+    getDataFromLocalStorage,
+    saveDataInLocalStorage,
+} from "../../helpers/localStorageFunctions";
 
 function MovieCards({ category }) {
     const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
@@ -38,6 +41,15 @@ function MovieCards({ category }) {
             .catch((err) => console.log(err))
             .finally(() => setLoading(false));
     }, [currentPage, category]);
+
+    useEffect(() => {
+        saveDataInLocalStorage("favourite_movies", isFavourite);
+    }, [isFavourite]);
+
+    useEffect(() => {
+        const favouritesMovies = getDataFromLocalStorage("favourite_movies");
+        setIsFavourite(favouritesMovies || []);
+    }, []);
 
     useEffect(() => {
         if (searchTerm) {
