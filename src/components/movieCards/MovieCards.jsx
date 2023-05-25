@@ -9,6 +9,7 @@ import { Spinner } from "react-bootstrap";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useContext } from "react";
 import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
+import { saveDataInLocalStorage } from "../../helpers/localStorageFunctions";
 
 function MovieCards({ category }) {
     const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
@@ -60,9 +61,9 @@ function MovieCards({ category }) {
     };
 
     const addToFavourite = (movie) => {
-        if (isFavourite.includes(movie)) {
+        if (isFavourite.some((favMovie) => favMovie.title === movie.title)) {
             setIsFavourite((prevFavourites) =>
-                prevFavourites.filter((item) => item !== movie)
+                prevFavourites.filter((item) => item.title !== movie.title)
             );
         } else {
             setIsFavourite((prevFavourites) => [...prevFavourites, movie]);
@@ -84,27 +85,34 @@ function MovieCards({ category }) {
             ) : (
                 <>
                     <div className="movie-card-container">
-                        {movies?.map(({ poster_path, title, overview }) => (
-                            <Card key={`movie-${title}`} className="movie-card">
+                        {movies?.map((movie) => (
+                            <Card
+                                key={`movie-${movie.title}`}
+                                className="movie-card"
+                            >
                                 <Card.Img
                                     variant="top"
-                                    src={`${tmdbImageUrl}/${imageSize}${poster_path}`}
+                                    src={`${tmdbImageUrl}/${imageSize}${movie.poster_path}`}
                                 />
                                 <Card.Body>
                                     <Card.Title style={{ fontSize: "1rem" }}>
-                                        {title}
+                                        {movie.title}
                                     </Card.Title>
                                     <Card.Text style={{ fontSize: "0.75rem" }}>
-                                        {`${overview?.slice(0, 75)}...`}
+                                        {`${movie.overview?.slice(0, 75)}...`}
                                     </Card.Text>
                                     <div className="favourite-add">
                                         <div
                                             className="heart-icon"
                                             onClick={() => {
-                                                addToFavourite(title);
+                                                addToFavourite(movie);
                                             }}
                                         >
-                                            {isFavourite.includes(title) ? (
+                                            {isFavourite.some(
+                                                (favMovie) =>
+                                                    favMovie.title ===
+                                                    movie.title
+                                            ) ? (
                                                 <FaHeart />
                                             ) : (
                                                 <FaRegHeart />
