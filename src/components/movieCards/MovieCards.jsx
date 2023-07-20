@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { fetchMovies, searchMovies } from "../../api/Api";
 
-import "./MovieCards.scss";
 import Pagination from "../pagination/Pagination";
 import MainSearcher from "../searcher/MainSearcher.jsx";
 import { Spinner } from "react-bootstrap";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FiMaximize2 } from "react-icons/fi";
 import { useContext } from "react";
 import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
 import {
     getDataFromLocalStorage,
     saveDataInLocalStorage,
 } from "../../helpers/localStorageFunctions";
+import DetailsModal from "../modals/DetailsModal";
+
+import "./MovieCards.scss";
 
 function MovieCards({ category }) {
     const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
@@ -21,6 +24,7 @@ function MovieCards({ category }) {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [showDetails, setShowDetails] = useState(false);
 
     useEffect(() => {
         let endpoint;
@@ -82,9 +86,18 @@ function MovieCards({ category }) {
         }
     };
 
+    const handleShowDetails = (movieID) => {
+        setShowDetails((prevValue) => ({
+            ...prevValue,
+            [movieID]: !prevValue[movieID],
+        }));
+    };
+
     const tmdbImageUrl = "https://image.tmdb.org/t/p";
     const imageSize = "w500";
+
     console.log(isFavourite);
+
     return (
         <>
             <MainSearcher searchTerm={searchTerm} handleSearch={handleSearch} />
@@ -98,41 +111,68 @@ function MovieCards({ category }) {
                 <>
                     <div className="movie-card-container">
                         {movies?.map((movie) => (
-                            <Card
-                                key={`movie-${movie.title}`}
-                                className="movie-card"
-                            >
-                                <Card.Img
-                                    variant="top"
-                                    src={`${tmdbImageUrl}/${imageSize}${movie.poster_path}`}
-                                />
-                                <Card.Body>
-                                    <Card.Title style={{ fontSize: "1rem" }}>
-                                        {movie.title}
-                                    </Card.Title>
-                                    <Card.Text style={{ fontSize: "0.75rem" }}>
-                                        {`${movie.overview?.slice(0, 75)}...`}
-                                    </Card.Text>
-                                    <div className="favourite-add">
+                            <>
+                                <Card
+                                    key={`movie-${movie.title}-${movie.id}`}
+                                    className="movie-card"
+                                >
+                                    <div className="image-container">
+                                        {/* Icon for maximizing */}
                                         <div
-                                            className="heart-icon"
+                                            className="maximize-icon"
                                             onClick={() => {
-                                                addToFavourite(movie);
+                                                handleShowDetails(movie.id);
                                             }}
                                         >
-                                            {isFavourite.some(
-                                                (favMovie) =>
-                                                    favMovie.title ===
-                                                    movie.title
-                                            ) ? (
-                                                <FaHeart />
-                                            ) : (
-                                                <FaRegHeart />
-                                            )}
+                                            <FiMaximize2 size={12} />
                                         </div>
+
+                                        {/* Movie poster */}
+                                        <Card.Img
+                                            variant="top"
+                                            src={`${tmdbImageUrl}/${imageSize}${movie.poster_path}`}
+                                        />
                                     </div>
-                                </Card.Body>
-                            </Card>
+                                    <Card.Body>
+                                        <Card.Title
+                                            style={{ fontSize: "1rem" }}
+                                        >
+                                            {movie.title}
+                                        </Card.Title>
+                                        <Card.Text
+                                            style={{ fontSize: "0.75rem" }}
+                                        >
+                                            {`${movie.overview?.slice(
+                                                0,
+                                                75
+                                            )}...`}
+                                        </Card.Text>
+                                        <div className="favourite-add">
+                                            <div
+                                                className="heart-icon"
+                                                onClick={() => {
+                                                    addToFavourite(movie);
+                                                }}
+                                            >
+                                                {isFavourite.some(
+                                                    (favMovie) =>
+                                                        favMovie.title ===
+                                                        movie.title
+                                                ) ? (
+                                                    <FaHeart />
+                                                ) : (
+                                                    <FaRegHeart />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                                <DetailsModal
+                                    movie={movie}
+                                    show={showDetails}
+                                    onHide={() => setShowDetails(false)}
+                                />
+                            </>
                         ))}
                     </div>
                     <Pagination

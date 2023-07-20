@@ -1,6 +1,12 @@
 import MovieCards from "../movieCards/MovieCards";
+import MainNavbar from "../navbar/MainNavbar";
 
 function KidsMovies() {
-    return <MovieCards category="kids" />;
+    return (
+        <>
+            <MainNavbar />
+            <MovieCards category="kids" />
+        </>
+    );
 }
 export default KidsMovies;

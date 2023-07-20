@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "Dominika",
+      "name": "Mazur",
+      "email": "d@d.pl",
+      "password": "dm"
+    },
+    {
+      "id": "Kuba",
+      "name": "Kuba",
+      "email": "k@k.pl",
+      "password": "kk"
+    },
+    {
+      "id": "Mati",
+      "name": "Mati",
+      "email": "m@m.pl",
+      "password": "mm"
+    }
+  ]
+}

@@ -5,8 +5,32 @@
 }
 
 .movie-card {
-    width: calc(100% / 6 - 1rem);
+    width: calc(100% / 4 - 1rem);
     margin: 0.5rem;
+    position: relative;
+
+    .image-container {
+        position: relative;
+        display: inline-block;
+
+        .maximize-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            z-index: 1;
+            color: white; // Adjust the color to match your design
+
+            /* Add transition for smooth scaling */
+            transition: transform 0.2s ease-in-out;
+
+            /* Apply a scale transform on click */
+            &:hover {
+                transform: scale(
+                    1.2
+                ); // Increase the scale factor for a more pronounced effect
+            }
+        }
+    }
 
     .favourite-add {
         position: absolute;
