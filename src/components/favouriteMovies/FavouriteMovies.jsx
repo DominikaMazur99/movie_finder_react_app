@@ -1,69 +1,34 @@
-import { useEffect, useState } from "react";
-import { useContext } from "react";
-import Card from "react-bootstrap/Card";
+import { Container } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 
-import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { getDataFromLocalStorage } from "../../helpers/localStorageFunctions";
+import { MdDeleteForever } from "react-icons/md";
 
-function FavouriteMovies() {
-    const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
+import "./FavouriteMovies.scss";
 
-    const tmdbImageUrl = "https://image.tmdb.org/t/p";
-    const imageSize = "w500";
-
-    useEffect(() => {
-        const favouritesMovies = getDataFromLocalStorage("favourite_movies");
-        setIsFavourite(favouritesMovies || []);
-    }, []);
-
-    const addToFavourite = (movie) => {
-        if (isFavourite.some((favMovie) => favMovie.title === movie.title)) {
-            setIsFavourite((prevFavourites) =>
-                prevFavourites.filter((item) => item.title !== movie.title)
-            );
-        } else {
-            setIsFavourite((prevFavourites) => [...prevFavourites, movie]);
-        }
-    };
+function FavouriteMovies({ favouriteMovies, setIsFavourite }) {
+    // const deleteFromFavourites = (movieId) => {
+    //     const newState = favouriteMovies.filter(({ id }) => id === movieId);
+    //     setIsFavourite(newState);
+    // };
     return (
-        <>
-            <div className="movie-card-container">
-                {isFavourite?.map((movie) => (
-                    <Card key={`movie-${movie.title}`} className="movie-card">
-                        <Card.Img
-                            variant="top"
-                            src={`${tmdbImageUrl}/${imageSize}${movie.poster_path}`}
-                        />
-                        <Card.Body>
-                            <Card.Title style={{ fontSize: "1rem" }}>
-                                {movie.title}
-                            </Card.Title>
-                            <Card.Text style={{ fontSize: "0.75rem" }}>
-                                {`${movie.overview?.slice(0, 75)}...`}
-                            </Card.Text>
-                            <div className="favourite-add">
-                                <div
-                                    className="heart-icon"
-                                    onClick={() => {
-                                        addToFavourite(movie);
-                                    }}
-                                >
-                                    {isFavourite.some(
-                                        (favMovie) =>
-                                            favMovie.title === movie.title
-                                    ) ? (
-                                        <FaHeart />
-                                    ) : (
-                                        <FaRegHeart />
-                                    )}
-                                </div>
+        <Container className="mt-3">
+            <Dropdown.Menu show style={{ width: "80.5%" }}>
+                <Dropdown.Header>Favourite Movies List</Dropdown.Header>
+                {favouriteMovies.map(({ id, title }) => (
+                    <Dropdown.Item eventKey={id}>
+                        <div className="favourite-movie">
+                            <div>{title}</div>
+                            <div
+                                className="delete-icon"
+                                onClick={deleteFromFavourites(id)}
+                            >
+                                <MdDeleteForever size={18} />
                             </div>
-                        </Card.Body>
-                    </Card>
+                        </div>
+                    </Dropdown.Item>
                 ))}
-            </div>
-        </>
+            </Dropdown.Menu>
+        </Container>
     );
 }
 

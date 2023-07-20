@@ -16,6 +16,7 @@ import {
 import DetailsModal from "../modals/DetailsModal";
 
 import "./MovieCards.scss";
+import FavouriteMovies from "../favouriteMovies/FavouriteMovies";
 
 function MovieCards({ category }) {
     const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
@@ -96,11 +97,13 @@ function MovieCards({ category }) {
     const tmdbImageUrl = "https://image.tmdb.org/t/p";
     const imageSize = "w500";
 
-    console.log(isFavourite);
-
     return (
         <>
             <MainSearcher searchTerm={searchTerm} handleSearch={handleSearch} />
+            <FavouriteMovies
+                favouriteMovies={isFavourite}
+                setIsFavourite={setIsFavourite}
+            />
             {loading ? (
                 <div className="text-center">
                     <Spinner animation="border" role="status">

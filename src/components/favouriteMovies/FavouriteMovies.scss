@@ -1,0 +1,16 @@
+.favourite-movie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .delete-icon {
+        transition: transform 0.2s ease-in-out;
+
+        /* Apply a scale transform on click */
+        &:hover {
+            transform: scale(
+                1.2
+            ); // Increase the scale factor for a more pronounced effect
+        }
+    }
+}

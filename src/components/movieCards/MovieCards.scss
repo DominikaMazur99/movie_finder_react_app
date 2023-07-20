@@ -2,45 +2,46 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
+    margin-top: 8rem;
 
-.movie-card {
-    width: calc(100% / 4 - 1rem);
-    margin: 0.5rem;
-    position: relative;
-
-    .image-container {
+    .movie-card {
+        width: calc(100% / 4 - 1rem);
+        margin: 0.5rem;
         position: relative;
-        display: inline-block;
 
-        .maximize-icon {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            z-index: 1;
-            color: white; // Adjust the color to match your design
+        .image-container {
+            position: relative;
+            display: inline-block;
 
-            /* Add transition for smooth scaling */
-            transition: transform 0.2s ease-in-out;
+            .maximize-icon {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                z-index: 1;
+                color: white; // Adjust the color to match your design
 
-            /* Apply a scale transform on click */
-            &:hover {
-                transform: scale(
-                    1.2
-                ); // Increase the scale factor for a more pronounced effect
+                /* Add transition for smooth scaling */
+                transition: transform 0.2s ease-in-out;
+
+                /* Apply a scale transform on click */
+                &:hover {
+                    transform: scale(
+                        1.2
+                    ); // Increase the scale factor for a more pronounced effect
+                }
             }
         }
-    }
 
-    .favourite-add {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        cursor: pointer;
+        .favourite-add {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            cursor: pointer;
+        }
     }
 }
