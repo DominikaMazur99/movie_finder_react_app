@@ -87,6 +87,12 @@ function MovieCards({ category }) {
         }
     };
 
+    const deleteFromFavourites = (movieId) => {
+        setIsFavourite((prevFavourites) =>
+            prevFavourites.filter((movie) => movie.id !== movieId)
+        );
+    };
+
     const handleShowDetails = (movieID) => {
         setShowDetails((prevValue) => ({
             ...prevValue,
@@ -102,7 +108,7 @@ function MovieCards({ category }) {
             <MainSearcher searchTerm={searchTerm} handleSearch={handleSearch} />
             <FavouriteMovies
                 favouriteMovies={isFavourite}
-                setIsFavourite={setIsFavourite}
+                deleteFromFavourites={deleteFromFavourites}
             />
             {loading ? (
                 <div className="text-center">
@@ -112,6 +118,11 @@ function MovieCards({ category }) {
                 </div>
             ) : (
                 <>
+                    <Pagination
+                        currentPage={currentPage}
+                        handlePageClick={handlePageClick}
+                        totalPages={totalPages}
+                    />
                     <div className="movie-card-container">
                         {movies?.map((movie) => (
                             <>
