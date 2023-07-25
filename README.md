@@ -1,16 +1,26 @@
-## Movie Finder App
+# Movie Finder App
 
-# Simple application which allow us to find an interesting movies.
+This is a simple application that allows you to find interesting movies.
 
-# How you can use it?
+## How to Use
 
-1. Clone respository on Your computer.
-2. 'npm install' - in main catalog
-3. 'npm start'
-4. 'npm run api'
+Follow these steps to use the Movie Finder App:
 
-# Then you have to register and login.
+1. Clone the repository to your computer.
+2. Run `npm install` in the main catalog.
+3. Start the app with `npm start`.
+4. Start the API server with `npm run api`.
 
-# You can find film using searcher or paginate.
+## User Registration and Login
 
-# You can add films to favourites.
+Before using the app, you need to register and login with your credentials.
+
+## Finding Movies
+
+You can find movies using the search bar or by navigating through the pagination.
+
+## Adding Movies to Favorites
+
+You have the option to add movies to your favorites list.
+
+Enjoy finding and exploring movies with the Movie Finder App!
