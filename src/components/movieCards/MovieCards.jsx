@@ -5,7 +5,6 @@ import { fetchMovies, searchMovies } from "../../api/Api";
 import Pagination from "../pagination/Pagination";
 import MainSearcher from "../searcher/MainSearcher.jsx";
 import { Spinner } from "react-bootstrap";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FiMaximize2 } from "react-icons/fi";
 import { useContext } from "react";
 import { AddToFavouriteContext } from "../../context/AddToFavouritesContext";
@@ -17,6 +16,7 @@ import DetailsModal from "../modals/DetailsModal";
 
 import "./MovieCards.scss";
 import FavouriteMovies from "../favouriteMovies/FavouriteMovies";
+import FavouriteMoviesAddHeart from "../favouriteMovies/FavouriteMoviesAddHeart";
 
 function MovieCards({ category }) {
     const { isFavourite, setIsFavourite } = useContext(AddToFavouriteContext);
@@ -25,8 +25,7 @@ function MovieCards({ category }) {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
-    const [showDetails, setShowDetails] = useState(false);
-
+    const [showDetails, setShowDetails] = useState(null);
     useEffect(() => {
         let endpoint;
         if (category === "popular") {
@@ -94,10 +93,8 @@ function MovieCards({ category }) {
     };
 
     const handleShowDetails = (movieID) => {
-        setShowDetails((prevValue) => ({
-            ...prevValue,
-            [movieID]: !prevValue[movieID],
-        }));
+        // Toggle the modal for the clicked movieID
+        setShowDetails((prevValue) => (prevValue === movieID ? null : movieID));
     };
 
     const tmdbImageUrl = "https://image.tmdb.org/t/p";
@@ -161,30 +158,19 @@ function MovieCards({ category }) {
                                                 75
                                             )}...`}
                                         </Card.Text>
-                                        <div className="favourite-add">
-                                            <div
-                                                className="heart-icon"
-                                                onClick={() => {
-                                                    addToFavourite(movie);
-                                                }}
-                                            >
-                                                {isFavourite.some(
-                                                    (favMovie) =>
-                                                        favMovie.title ===
-                                                        movie.title
-                                                ) ? (
-                                                    <FaHeart />
-                                                ) : (
-                                                    <FaRegHeart />
-                                                )}
-                                            </div>
-                                        </div>
+                                        <FavouriteMoviesAddHeart
+                                            isFavourite={isFavourite}
+                                            addToFavourite={addToFavourite}
+                                            movie={movie}
+                                        />
                                     </Card.Body>
                                 </Card>
                                 <DetailsModal
                                     movie={movie}
-                                    show={showDetails}
-                                    onHide={() => setShowDetails(false)}
+                                    show={showDetails === movie.id}
+                                    onHide={() => setShowDetails(null)}
+                                    isFavourite={isFavourite}
+                                    addToFavourite={addToFavourite}
                                 />
                             </>
                         ))}
