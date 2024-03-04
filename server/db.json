@@ -17,6 +17,12 @@
       "name": "Mati",
       "email": "m@m.pl",
       "password": "mm"
+    },
+    {
+      "id": "dm",
+      "name": "dm",
+      "email": "dm@dm.pl",
+      "password": "dm"
     }
   ]
 }

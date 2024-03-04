@@ -1,20 +1,8 @@
-export const fetchMovies = async (
-    method = "GET",
-    body = null,
-    headers = {},
-    params
-) => {
+export const fetchMovies = async (params) => {
     try {
         const apiKey = "280e8d5f4d972c7dd3aa5c4171bebf68";
-        const url = `https://api.themoviedb.org/3/discover/movie/?${params}&api_key=${apiKey}`;
-        const response = await fetch(url, {
-            method,
-            body,
-            headers: {
-                ...headers,
-                "Content-Type": "application/json",
-            },
-        });
+        const url = `https://api.themoviedb.org/3/discover/movie?${params}&api_key=${apiKey}`;
+        const response = await fetch(url);
 
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -27,23 +15,11 @@ export const fetchMovies = async (
     }
 };
 
-export const searchMovies = async (
-    method = "GET",
-    body = null,
-    headers = {},
-    params
-) => {
+export const searchMovies = async (params) => {
     try {
         const apiKey = "280e8d5f4d972c7dd3aa5c4171bebf68";
         const url = `https://api.themoviedb.org/3/search/movie?${params}&api_key=${apiKey}`;
-        const response = await fetch(url, {
-            method,
-            body,
-            headers: {
-                ...headers,
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await fetch(url);
 
         if (!response.ok) {
             throw new Error("Network response was not ok");

@@ -37,7 +37,7 @@ function MovieCards({ category }) {
         }
 
         setLoading(true);
-        fetchMovies("GET", null, {}, endpoint)
+        fetchMovies(endpoint)
             .then((data) => {
                 setMovies(data.results);
                 setTotalPages(data.total_pages);
@@ -58,7 +58,7 @@ function MovieCards({ category }) {
     useEffect(() => {
         if (searchTerm) {
             setLoading(true);
-            searchMovies("GET", null, {}, `query=${searchTerm}`)
+            searchMovies(`query=${searchTerm}`)
                 .then((data) => {
                     setMovies(data.results);
                     setTotalPages(data.total_pages);
