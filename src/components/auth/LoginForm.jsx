@@ -14,12 +14,22 @@ import loginIcon from "../images/loginIcon.png";
 
 import "./LoginForm.scss";
 import { saveDataInLocalStorage } from "../../helpers/localStorageFunctions.js";
+import NotificationModal from "../modals/NotificationModal.jsx";
 
 function LoginForm() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
+    const [notification, setNotification] = useState({
+        title: "",
+        message: "",
+    });
 
     const navigate = useNavigate();
+
+    const close = () => {
+        setShow(false);
+    };
 
     useEffect(() => {
         sessionStorage.clear();
@@ -37,6 +47,11 @@ function LoginForm() {
                     //console.log(resp)
                     if (Object.keys(resp).length === 0) {
                         console.log("Please Enter valid login");
+                        setShow(true);
+                        setNotification({
+                            title: "Error",
+                            message: "Please Enter valid login",
+                        });
                     } else {
                         if (resp.password === password) {
                             console.log("Success");
@@ -44,11 +59,21 @@ function LoginForm() {
                             navigate("/");
                         } else {
                             console.log("Please Enter valid credentials");
+                            setShow(true);
+                            setNotification({
+                                title: "Error",
+                                message: "Please Enter valid credentials",
+                            });
                         }
                     }
                 })
                 .catch((err) => {
                     console.log("Login Failed due to :" + err.message);
+                    setShow(true);
+                    setNotification({
+                        title: "Error",
+                        message: `Login Failed due to : + ${err.message}`,
+                    });
                 });
         }
     };
@@ -69,6 +94,12 @@ function LoginForm() {
 
     return (
         <Container>
+            <NotificationModal
+                show={show}
+                close={close}
+                title={notification.title}
+                message={notification.message}
+            />
             <Row xs={2} md={8} className="login-box">
                 <Form onSubmit={LoginToApp}>
                     <Col>
